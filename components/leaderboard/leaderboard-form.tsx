@@ -44,7 +44,7 @@ export const LeaderboardForm = ({ onSuccess }: LeaderboardFormProps) => {
             />
             <TouchableOpacity
                 className={cn(
-                    'rounded-2.5 items-center bg-primary py-[13px]',
+                    'rounded-2.5 items-center bg-primary py-3.25',
                     isLoading && 'opacity-60'
                 )}
                 disabled={isLoading}

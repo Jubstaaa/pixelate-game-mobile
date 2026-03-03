@@ -35,7 +35,7 @@ export const FeedbackModal = () => {
                                 <Text className="text-[17px] font-bold text-foreground">
                                     Share your thoughts
                                 </Text>
-                                <Text className="mt-[3px] text-[13px] text-muted">
+                                <Text className="mt-0.75 text-[13px] text-muted">
                                     We&apos;d love to hear your feedback.
                                 </Text>
                             </View>

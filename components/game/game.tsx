@@ -155,7 +155,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
             </View>
 
             <View className="flex-row gap-2.5">
-                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-[7px]">
+                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1.75">
                     <Flame color={COLORS.warning} size={16} />
                     <Text
                         className="text-[15px] font-bold"
@@ -163,7 +163,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                         {data.streak ?? 0}
                     </Text>
                 </View>
-                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-[7px]">
+                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1.75">
                     <Trophy color={COLORS.success} size={16} />
                     <Text
                         className="text-[15px] font-bold"
@@ -178,7 +178,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     <TextInput
                         autoCapitalize="none"
                         autoCorrect={false}
-                        className="rounded-2.5 border border-border bg-surface px-3.5 py-[13px] text-[15px] text-foreground"
+                        className="rounded-2.5 border border-border bg-surface px-3.5 py-3.25 text-[15px] text-foreground"
                         placeholder="Type to search..."
                         placeholderTextColor={COLORS.muted}
                         value={input}

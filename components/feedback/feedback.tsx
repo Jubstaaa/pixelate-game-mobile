@@ -61,7 +61,7 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
                         className={cn(
                             'flex-1 items-center rounded-lg border py-2.5',
                             selectedRating === label
-                                ? 'border-primary bg-primary/[0.08]'
+                                ? 'border-primary bg-primary/8'
                                 : 'border-border'
                         )}
                         onPress={() => setSelectedRating(label)}>
@@ -79,7 +79,7 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
 
             <TouchableOpacity
                 className={cn(
-                    'rounded-2.5 items-center bg-primary py-[13px]',
+                    'rounded-2.5 items-center bg-primary py-3.25',
                     isLoading && 'opacity-60'
                 )}
                 disabled={isLoading}
