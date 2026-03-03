@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 
 import { ChevronLeft } from 'lucide-react-native'
 
-import { Image } from 'expo-image'
+import { Image } from '@/lib/image'
 import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, View } from 'react-native'
 

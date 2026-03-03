@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 
 import { Flame, Trophy } from 'lucide-react-native'
 
-import { Image } from 'expo-image'
+import { Image } from '@/lib/image'
 import {
     ActivityIndicator,
     Keyboard,
