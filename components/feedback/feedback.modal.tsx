@@ -17,7 +17,7 @@ export const FeedbackModal = () => {
     return (
         <>
             <TouchableOpacity
-                className="flex-row items-center gap-[6px] rounded-lg border border-border px-[10px] py-[6px]"
+                className="flex-row items-center gap-1.5 rounded-lg border border-border px-2.5 py-1.5"
                 onPress={handleOpen}>
                 <MessageSquare color={COLORS.muted} size={14} />
                 <Text className="text-[13px] text-muted">Feedback</Text>

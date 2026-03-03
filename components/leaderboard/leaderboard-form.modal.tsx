@@ -13,7 +13,7 @@ export const LeaderboardFormModal = () => {
     return (
         <>
             <TouchableOpacity
-                className="rounded-lg bg-primary px-[14px] py-2"
+                className="rounded-lg bg-primary px-3.5 py-2"
                 onPress={handleOpen}>
                 <Text className="text-[13px] font-semibold text-white">
                     Join Ranking

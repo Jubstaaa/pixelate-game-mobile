@@ -42,10 +42,10 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
     }, [feedback, selectedRating, sendFeedback, onClose])
 
     return (
-        <View className="gap-[14px]">
+        <View className="gap-3.5">
             <TextInput
                 multiline
-                className="min-h-[110px] rounded-[10px] border border-border bg-surface p-3 text-sm text-foreground"
+                className="rounded-2.5 min-h-27.5 border border-border bg-surface p-3 text-sm text-foreground"
                 numberOfLines={5}
                 placeholder="Ideas or suggestions to improve our product"
                 placeholderTextColor={COLORS.muted}
@@ -59,7 +59,7 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
                     <TouchableOpacity
                         key={label}
                         className={cn(
-                            'flex-1 items-center rounded-lg border py-[10px]',
+                            'flex-1 items-center rounded-lg border py-2.5',
                             selectedRating === label
                                 ? 'border-primary bg-primary/[0.08]'
                                 : 'border-border'
@@ -79,7 +79,7 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
 
             <TouchableOpacity
                 className={cn(
-                    'items-center rounded-[10px] bg-primary py-[13px]',
+                    'rounded-2.5 items-center bg-primary py-[13px]',
                     isLoading && 'opacity-60'
                 )}
                 disabled={isLoading}

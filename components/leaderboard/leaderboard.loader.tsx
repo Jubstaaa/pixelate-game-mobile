@@ -24,7 +24,7 @@ export const LeaderboardLoader = () => (
         {Array.from({ length: LOADER_ROWS }).map((_, i) => (
             <View
                 key={i}
-                className="mb-1 flex-row items-center rounded-lg px-3 py-[10px]">
+                className="mb-1 flex-row items-center rounded-lg px-3 py-2.5">
                 <View
                     className="h-5 rounded bg-surface-hover opacity-60"
                     style={{ flex: 0.8 }}

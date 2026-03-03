@@ -24,7 +24,7 @@ const HomeScreen = () => {
                 contentContainerClassName="pb-8"
                 showsVerticalScrollIndicator={false}>
                 <View className="items-center gap-3 pt-10 pb-8">
-                    <View className="rounded-[6px] border border-border px-[10px] py-1">
+                    <View className="rounded-1.5 border border-border px-2.5 py-1">
                         <Text className="text-xs text-foreground">
                             Open Beta!
                         </Text>
@@ -32,7 +32,7 @@ const HomeScreen = () => {
                     <Text className="text-[42px] font-extrabold -tracking-[1px] text-primary">
                         Pixel Guess
                     </Text>
-                    <Text className="max-w-[300px] text-center text-[15px] leading-[22px] text-muted">
+                    <Text className="max-w-75 text-center text-[15px] leading-[22px] text-muted">
                         Challenge yourself! Pick a category and guess the hidden
                         image pixel by pixel.
                     </Text>

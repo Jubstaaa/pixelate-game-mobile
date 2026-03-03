@@ -25,7 +25,7 @@ export const LeaderboardDrawer = ({
     return (
         <>
             <TouchableOpacity
-                className="size-12 items-center justify-center rounded-[10px] border border-border"
+                className="rounded-2.5 size-12 items-center justify-center border border-border"
                 onPress={handleOpen}>
                 <BarChart2 color={COLORS.foreground} size={22} />
             </TouchableOpacity>
@@ -40,7 +40,7 @@ export const LeaderboardDrawer = ({
                         <Text className="text-lg font-bold text-foreground">
                             Leaderboard
                         </Text>
-                        <View className="flex-row items-center gap-[10px]">
+                        <View className="flex-row items-center gap-2.5">
                             {!device?.username && <LeaderboardFormModal />}
                             <TouchableOpacity
                                 className="p-1"

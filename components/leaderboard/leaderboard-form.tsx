@@ -33,7 +33,7 @@ export const LeaderboardForm = ({ onSuccess }: LeaderboardFormProps) => {
         <View className="gap-3">
             <TextInput
                 autoCapitalize="none"
-                className="rounded-[10px] border border-border bg-surface px-[14px] py-3 text-[15px] text-foreground"
+                className="rounded-2.5 border border-border bg-surface px-3.5 py-3 text-[15px] text-foreground"
                 editable={!isLoading}
                 placeholder="Username"
                 placeholderTextColor="#71717a"
@@ -44,7 +44,7 @@ export const LeaderboardForm = ({ onSuccess }: LeaderboardFormProps) => {
             />
             <TouchableOpacity
                 className={cn(
-                    'items-center rounded-[10px] bg-primary py-[13px]',
+                    'rounded-2.5 items-center bg-primary py-[13px]',
                     isLoading && 'opacity-60'
                 )}
                 disabled={isLoading}

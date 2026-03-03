@@ -33,7 +33,7 @@ export const CategoryCard = ({ item }: CategoryCardProps) => {
     return (
         <View
             className={cn(
-                'overflow-hidden rounded-[14px] border border-border bg-surface',
+                'rounded-3.5 overflow-hidden border border-border bg-surface',
                 !item.isActive && 'opacity-40'
             )}>
             <View className="items-center gap-3 p-6">
@@ -66,7 +66,7 @@ export const CategoryCard = ({ item }: CategoryCardProps) => {
                         </TouchableOpacity>
                     </>
                 ) : (
-                    <View className="rounded-full border border-border px-[14px] py-[6px]">
+                    <View className="rounded-full border border-border px-3.5 py-1.5">
                         <Text className="text-[13px] text-muted">
                             Coming Soon
                         </Text>

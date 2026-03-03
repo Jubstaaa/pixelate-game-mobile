@@ -145,7 +145,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 origin={{ x: -20, y: 0 }}
             />
 
-            <View className="overflow-hidden rounded-[14px] border border-border">
+            <View className="rounded-3.5 overflow-hidden border border-border">
                 <PixelatedImage
                     count={isRevealed ? 6 : (data.count ?? 0)}
                     imageUrl={imageUrl}
@@ -154,8 +154,8 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 />
             </View>
 
-            <View className="flex-row gap-[10px]">
-                <View className="flex-row items-center gap-[6px] rounded-full border border-border bg-surface px-[14px] py-[7px]">
+            <View className="flex-row gap-2.5">
+                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-[7px]">
                     <Flame color={COLORS.warning} size={16} />
                     <Text
                         className="text-[15px] font-bold"
@@ -163,7 +163,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                         {data.streak ?? 0}
                     </Text>
                 </View>
-                <View className="flex-row items-center gap-[6px] rounded-full border border-border bg-surface px-[14px] py-[7px]">
+                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-[7px]">
                     <Trophy color={COLORS.success} size={16} />
                     <Text
                         className="text-[15px] font-bold"
@@ -173,12 +173,12 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 </View>
             </View>
 
-            <View className="w-full flex-row items-start gap-[10px] px-4">
+            <View className="w-full flex-row items-start gap-2.5 px-4">
                 <View className="relative z-10 flex-1">
                     <TextInput
                         autoCapitalize="none"
                         autoCorrect={false}
-                        className="rounded-[10px] border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
+                        className="rounded-2.5 border border-border bg-surface px-3.5 py-[13px] text-[15px] text-foreground"
                         placeholder="Type to search..."
                         placeholderTextColor={COLORS.muted}
                         value={input}
@@ -187,7 +187,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     />
                     {showDropdown && filteredCharacters.length > 0 && (
                         <View
-                            className="absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden rounded-[10px] border border-border bg-surface"
+                            className="rounded-2.5 absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden border border-border bg-surface"
                             style={{
                                 elevation: 8,
                                 shadowColor: '#000',
@@ -198,7 +198,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                             {filteredCharacters.map(item => (
                                 <TouchableOpacity
                                     key={item.id}
-                                    className="flex-row items-center gap-[10px] border-b border-border px-3 py-[10px]"
+                                    className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
                                     onPress={() => handleSelect(item)}>
                                     <Image
                                         className="size-8 rounded-2xl"

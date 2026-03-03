@@ -42,7 +42,7 @@ export const Leaderboard = ({
             return (
                 <View
                     className={cn(
-                        'mb-1 flex-row items-center rounded-lg px-3 py-[10px]',
+                        'mb-1 flex-row items-center rounded-lg px-3 py-2.5',
                         ROW_BG[index],
                         isCurrentUser && 'border border-primary bg-primary/10'
                     )}>

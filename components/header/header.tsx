@@ -22,12 +22,12 @@ export const Header = ({ category }: HeaderProps) => {
     const handleBack = useCallback(() => router.back(), [router])
 
     return (
-        <View className="flex-row items-center justify-between rounded-[14px] border border-border bg-surface/80 px-3 py-[10px]">
-            <View className="flex-1 flex-row items-center gap-[10px]">
+        <View className="rounded-3.5 flex-row items-center justify-between border border-border bg-surface/80 px-3 py-2.5">
+            <View className="flex-1 flex-row items-center gap-2.5">
                 <TouchableOpacity className="p-1" onPress={handleBack}>
                     <ChevronLeft color={COLORS.foreground} size={20} />
                 </TouchableOpacity>
-                <View className="rounded-[20px] bg-primary p-[6px]">
+                <View className="rounded-5 bg-primary p-1.5">
                     <Image
                         className="size-6"
                         contentFit="contain"
@@ -45,7 +45,7 @@ export const Header = ({ category }: HeaderProps) => {
 
             <View className="flex-row items-center gap-2">
                 {device?.username ? (
-                    <View className="rounded-lg border border-border bg-surface px-3 py-[6px]">
+                    <View className="rounded-lg border border-border bg-surface px-3 py-1.5">
                         <Text className="text-[13px] font-semibold text-foreground">
                             {device.username}
                         </Text>
