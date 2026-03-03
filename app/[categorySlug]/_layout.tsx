@@ -1,0 +1,37 @@
+import React, { useMemo } from 'react'
+
+import { Slot, useLocalSearchParams } from 'expo-router'
+import { ActivityIndicator, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { Header } from '@/components/header/header'
+import { COLORS } from '@/constants/colors'
+import { useGetCategoriesQuery } from '@/lib/api/game-api'
+
+const CategoryLayout = () => {
+    const { categorySlug } = useLocalSearchParams<{ categorySlug: string }>()
+
+    const { data: categories = [] } = useGetCategoriesQuery()
+
+    const category = useMemo(
+        () => categories.find(c => c.slug === categorySlug) ?? null,
+        [categories, categorySlug]
+    )
+
+    return (
+        <SafeAreaView className="flex-1 bg-background">
+            <View className="flex-1 gap-3 px-3 pt-2">
+                {category ? (
+                    <Header category={category} />
+                ) : (
+                    <View className="h-14 items-center justify-center">
+                        <ActivityIndicator color={COLORS.primary} />
+                    </View>
+                )}
+                <Slot />
+            </View>
+        </SafeAreaView>
+    )
+}
+
+export default CategoryLayout
