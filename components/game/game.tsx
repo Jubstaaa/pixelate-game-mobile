@@ -155,7 +155,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     onPress={handleDismissDropdown}
                 />
             )}
-            <View className="flex-1 items-center gap-5 pt-3">
+            <View className='absolute top-0 left-0 bottom-0 right-0 z-50 pointer-events-none'>
                 <ConfettiCannon
                     ref={confettiRef}
                     fadeOut
@@ -164,8 +164,9 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     count={120}
                     origin={{ x: -20, y: 0 }}
                 />
-
-                <View className="rounded-[14px] overflow-hidden border border-border">
+            </View>
+            <View className="flex-1 items-center gap-5 pt-3">
+                <View className="rounded-[14px] overflow-hidden border border-border z-0">
                     <PixelatedImage
                         count={isRevealed ? 6 : (data.count ?? 0)}
                         imageUrl={imageUrl}
