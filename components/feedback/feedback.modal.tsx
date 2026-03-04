@@ -26,8 +26,11 @@ export const FeedbackModal = () => {
                 animationType="fade"
                 visible={isOpen}
                 onRequestClose={handleClose}>
-                <View style={styles.overlay}>
-                    <View style={styles.sheet}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.overlay}
+                    onPress={handleClose}>
+                    <TouchableOpacity activeOpacity={1} style={styles.sheet} onPress={() => {}}>
                         <View style={styles.sheetHeader}>
                             <View>
                                 <Text style={styles.title}>
@@ -42,8 +45,8 @@ export const FeedbackModal = () => {
                             </TouchableOpacity>
                         </View>
                         <Feedback onClose={handleClose} />
-                    </View>
-                </View>
+                    </TouchableOpacity>
+                </TouchableOpacity>
             </Modal>
         </>
     )

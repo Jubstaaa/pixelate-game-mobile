@@ -23,15 +23,18 @@ export const LeaderboardFormModal = () => {
                 animationType="fade"
                 visible={isOpen}
                 onRequestClose={handleClose}>
-                <View style={styles.overlay}>
-                    <View style={styles.sheet}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.overlay}
+                    onPress={handleClose}>
+                    <TouchableOpacity activeOpacity={1} style={styles.sheet} onPress={() => {}}>
                         <Text style={styles.title}>Join the Ranking</Text>
                         <Text style={styles.subtitle}>
                             Enter your username to join the leaderboard.
                         </Text>
                         <LeaderboardForm onSuccess={handleClose} />
-                    </View>
-                </View>
+                    </TouchableOpacity>
+                </TouchableOpacity>
             </Modal>
         </>
     )

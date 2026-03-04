@@ -6,6 +6,7 @@ import { Image } from '@/lib/image'
 import {
     ActivityIndicator,
     Keyboard,
+    Pressable,
     StyleSheet,
     Text,
     TextInput,
@@ -95,6 +96,11 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
 
     const handleInputFocus = useCallback(() => setShowDropdown(true), [])
 
+    const handleDismissDropdown = useCallback(() => {
+        setShowDropdown(false)
+        Keyboard.dismiss()
+    }, [])
+
     const handleSelect = useCallback(
         async (character: Character) => {
             Keyboard.dismiss()
@@ -136,6 +142,10 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
     const imageUrl = addImageResizeParams(data.characterImage, 800, 800)
 
     return (
+        <>
+        {showDropdown && (
+            <Pressable style={styles.dropdownBackdrop} onPress={handleDismissDropdown} />
+        )}
         <View style={styles.container}>
             <ConfettiCannon
                 ref={confettiRef}
@@ -215,6 +225,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 />
             </View>
         </View>
+        </>
     )
 }
 
@@ -311,5 +322,9 @@ const styles = StyleSheet.create({
     dropdownText: {
         fontSize: 14,
         color: COLORS.foreground,
+    },
+    dropdownBackdrop: {
+        ...StyleSheet.absoluteFillObject,
+        zIndex: 9,
     },
 })
