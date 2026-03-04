@@ -7,7 +7,6 @@ import {
     ActivityIndicator,
     Keyboard,
     Pressable,
-    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
@@ -133,7 +132,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
 
     if (isLoading || isCharsLoading || isDeviceLoading) {
         return (
-            <View style={styles.loading}>
+            <View className="flex-1 items-center justify-center">
                 <ActivityIndicator color={COLORS.primary} size="large" />
             </View>
         )
@@ -143,188 +142,110 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
 
     return (
         <>
-        {showDropdown && (
-            <Pressable style={styles.dropdownBackdrop} onPress={handleDismissDropdown} />
-        )}
-        <View style={styles.container}>
-            <ConfettiCannon
-                ref={confettiRef}
-                fadeOut
-                autoStart={false}
-                colors={CONFETTI_COLORS}
-                count={120}
-                origin={{ x: -20, y: 0 }}
-            />
-
-            <View style={styles.imageWrap}>
-                <PixelatedImage
-                    count={isRevealed ? 6 : (data.count ?? 0)}
-                    imageUrl={imageUrl}
-                    levelType={levelType}
-                    size={300}
+            {showDropdown && (
+                <Pressable
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 9,
+                    }}
+                    onPress={handleDismissDropdown}
                 />
-            </View>
+            )}
+            <View className="flex-1 items-center gap-5 pt-3">
+                <ConfettiCannon
+                    ref={confettiRef}
+                    fadeOut
+                    autoStart={false}
+                    colors={CONFETTI_COLORS}
+                    count={120}
+                    origin={{ x: -20, y: 0 }}
+                />
 
-            <View style={styles.chips}>
-                <View style={styles.chip}>
-                    <Flame color={COLORS.warning} size={16} />
-                    <Text style={[styles.chipText, { color: COLORS.warning }]}>
-                        {data.streak ?? 0}
-                    </Text>
-                </View>
-                <View style={styles.chip}>
-                    <Trophy color={COLORS.success} size={16} />
-                    <Text style={[styles.chipText, { color: COLORS.success }]}>
-                        {data.maxStreak ?? 0}
-                    </Text>
-                </View>
-            </View>
-
-            <View style={styles.inputRow}>
-                <View style={styles.inputWrap}>
-                    <TextInput
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        style={styles.input}
-                        placeholder="Type to search..."
-                        placeholderTextColor={COLORS.muted}
-                        value={input}
-                        onChangeText={handleInputChange}
-                        onFocus={handleInputFocus}
+                <View className="rounded-[14px] overflow-hidden border border-border">
+                    <PixelatedImage
+                        count={isRevealed ? 6 : (data.count ?? 0)}
+                        imageUrl={imageUrl}
+                        levelType={levelType}
+                        size={300}
                     />
-                    {showDropdown && filteredCharacters.length > 0 && (
-                        <View style={styles.dropdown}>
-                            {filteredCharacters.map(item => (
-                                <TouchableOpacity
-                                    key={item.id}
-                                    style={styles.dropdownItem}
-                                    onPress={() => handleSelect(item)}>
-                                    <Image
-                                        style={styles.dropdownIcon}
-                                        contentFit="cover"
-                                        source={{
-                                            uri: addImageResizeParams(
-                                                item.characterImage,
-                                                64,
-                                                64
-                                            ),
-                                        }}
-                                    />
-                                    <Text style={styles.dropdownText}>
-                                        {item.name}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-                    )}
                 </View>
 
-                <LeaderboardDrawer
-                    categoryId={categoryId}
-                    levelType={levelType}
-                />
+                <View className="flex-row gap-2.5">
+                    <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
+                        <Flame color={COLORS.warning} size={16} />
+                        <Text className="text-[15px] font-bold text-warning">
+                            {data.streak ?? 0}
+                        </Text>
+                    </View>
+                    <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
+                        <Trophy color={COLORS.success} size={16} />
+                        <Text className="text-[15px] font-bold text-success">
+                            {data.maxStreak ?? 0}
+                        </Text>
+                    </View>
+                </View>
+
+                <View className="w-full flex-row items-start gap-2.5 px-4" style={{ zIndex: 10 }}>
+                    <View className="flex-1" style={{ zIndex: 10 }}>
+                        <TextInput
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            className="rounded-2.5 border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
+                            placeholderTextColorClassName="accent-muted"
+                            placeholder="Type to search..."
+                            value={input}
+                            onChangeText={handleInputChange}
+                            onFocus={handleInputFocus}
+                        />
+                        {showDropdown && filteredCharacters.length > 0 && (
+                            <View
+                                className="absolute left-0 right-0 top-full z-20 mt-1 rounded-[10px] overflow-hidden border border-border bg-surface"
+                                style={{
+                                    elevation: 8,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 4 },
+                                    shadowOpacity: 0.3,
+                                    shadowRadius: 8,
+                                }}>
+                                {filteredCharacters.map(item => (
+                                    <TouchableOpacity
+                                        key={item.id}
+                                        className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
+                                        onPress={() => handleSelect(item)}>
+                                        <Image
+                                            style={{
+                                                width: 32,
+                                                height: 32,
+                                                borderRadius: 16,
+                                            }}
+                                            contentFit="cover"
+                                            source={{
+                                                uri: addImageResizeParams(
+                                                    item.characterImage,
+                                                    64,
+                                                    64
+                                                ),
+                                            }}
+                                        />
+                                        <Text className="text-sm text-foreground">
+                                            {item.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        )}
+                    </View>
+
+                    <LeaderboardDrawer
+                        categoryId={categoryId}
+                        levelType={levelType}
+                    />
+                </View>
             </View>
-        </View>
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    loading: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        gap: 20,
-        paddingTop: 12,
-    },
-    imageWrap: {
-        borderRadius: 14,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: COLORS.border,
-    },
-    chips: {
-        flexDirection: 'row',
-        gap: 10,
-    },
-    chip: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-        borderRadius: 9999,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        paddingHorizontal: 14,
-        paddingVertical: 7,
-    },
-    chipText: {
-        fontSize: 15,
-        fontWeight: 'bold',
-    },
-    inputRow: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        gap: 10,
-        paddingHorizontal: 16,
-    },
-    inputWrap: {
-        flex: 1,
-        zIndex: 10,
-    },
-    input: {
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        paddingHorizontal: 14,
-        paddingVertical: 13,
-        fontSize: 15,
-        color: COLORS.foreground,
-    },
-    dropdown: {
-        position: 'absolute',
-        top: '100%',
-        left: 0,
-        right: 0,
-        zIndex: 20,
-        marginTop: 4,
-        borderRadius: 10,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        elevation: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-    },
-    dropdownItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: COLORS.border,
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-    },
-    dropdownIcon: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
-    },
-    dropdownText: {
-        fontSize: 14,
-        color: COLORS.foreground,
-    },
-    dropdownBackdrop: {
-        ...StyleSheet.absoluteFillObject,
-        zIndex: 9,
-    },
-})

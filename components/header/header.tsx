@@ -4,7 +4,7 @@ import { ChevronLeft } from 'lucide-react-native'
 
 import { Image } from '@/lib/image'
 import { useRouter } from 'expo-router'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
 import { COLORS } from '@/constants/colors'
 import { useGetDeviceQuery } from '@/lib/api/game-api'
@@ -20,29 +20,31 @@ export const Header = ({ category }: HeaderProps) => {
     const handleBack = useCallback(() => router.back(), [router])
 
     return (
-        <View style={styles.container}>
-            <View style={styles.left}>
-                <TouchableOpacity style={styles.backBtn} onPress={handleBack}>
+        <View className="flex-row items-center justify-between rounded-[14px] border border-border bg-surface/80 px-3 py-2.5">
+          <View className="flex-1 flex-row items-center gap-2.5">
+                <TouchableOpacity className="p-1" onPress={handleBack}>
                     <ChevronLeft color={COLORS.foreground} size={20} />
                 </TouchableOpacity>
-                <View style={styles.iconWrap}>
+                <View className="rounded-full bg-primary p-1.5">
                     <Image
-                        style={styles.icon}
+                        style={{ width: 24, height: 24 }}
                         contentFit="contain"
                         source={{
                             uri: addImageResizeParams(category.icon, 64, 64),
                         }}
                     />
                 </View>
-                <Text style={styles.categoryName} numberOfLines={1}>
+                <Text
+                    className="flex-1 text-[13px] font-medium text-muted"
+                    numberOfLines={1}>
                     {category.name}
                 </Text>
             </View>
 
-            <View style={styles.right}>
+            <View className="flex-row items-center gap-2">
                 {device?.username ? (
-                    <View style={styles.usernameBadge}>
-                        <Text style={styles.usernameText}>
+                    <View className="rounded-lg border border-border bg-surface px-3 py-1.5">
+                        <Text className="text-[13px] font-semibold text-foreground">
                             {device.username}
                         </Text>
                     </View>
@@ -53,59 +55,3 @@ export const Header = ({ category }: HeaderProps) => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: 14,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: 'rgba(24, 24, 27, 0.8)',
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-    },
-    left: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 10,
-    },
-    backBtn: {
-        padding: 4,
-    },
-    iconWrap: {
-        borderRadius: 20,
-        backgroundColor: COLORS.primary,
-        padding: 6,
-    },
-    icon: {
-        width: 24,
-        height: 24,
-    },
-    categoryName: {
-        flex: 1,
-        fontSize: 13,
-        fontWeight: '500',
-        color: COLORS.muted,
-    },
-    right: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-    },
-    usernameBadge: {
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-    },
-    usernameText: {
-        fontSize: 13,
-        fontWeight: '600',
-        color: COLORS.foreground,
-    },
-})

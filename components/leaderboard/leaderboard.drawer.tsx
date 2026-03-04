@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import { BarChart2, X } from 'lucide-react-native'
 
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { COLORS } from '@/constants/colors'
@@ -25,7 +25,9 @@ export const LeaderboardDrawer = ({
 
     return (
         <>
-            <TouchableOpacity style={styles.triggerBtn} onPress={handleOpen}>
+            <TouchableOpacity
+                className="w-12 h-12 rounded-[10px] items-center justify-center border border-border bg-surface"
+                onPress={handleOpen}>
                 <BarChart2 color={COLORS.foreground} size={22} />
             </TouchableOpacity>
 
@@ -34,19 +36,19 @@ export const LeaderboardDrawer = ({
                 presentationStyle="pageSheet"
                 visible={isOpen}
                 onRequestClose={handleClose}>
-                <SafeAreaView style={styles.modal}>
-                    <View style={styles.modalHeader}>
-                        <Text style={styles.modalTitle}>Leaderboard</Text>
-                        <View style={styles.modalActions}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+                    <View className="flex-row items-center justify-between border-b border-border px-5 py-4">
+                        <Text className="text-lg font-bold text-foreground">
+                            Leaderboard
+                        </Text>
+                        <View className="flex-row items-center gap-[10px]">
                             {!device?.username && <LeaderboardFormModal />}
-                            <TouchableOpacity
-                                style={styles.closeBtn}
-                                onPress={handleClose}>
+                            <TouchableOpacity className="p-1" onPress={handleClose}>
                                 <X color={COLORS.foreground} size={20} />
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.modalContent}>
+                    <View className="flex-1 px-4 pt-2">
                         <Leaderboard
                             categoryId={categoryId}
                             isVisible={isOpen}
@@ -58,47 +60,3 @@ export const LeaderboardDrawer = ({
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    triggerBtn: {
-        width: 48,
-        height: 48,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-    },
-    modal: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    modalHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomWidth: 1,
-        borderBottomColor: COLORS.border,
-        paddingHorizontal: 20,
-        paddingVertical: 16,
-    },
-    modalTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: COLORS.foreground,
-    },
-    modalActions: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 10,
-    },
-    closeBtn: {
-        padding: 4,
-    },
-    modalContent: {
-        flex: 1,
-        paddingHorizontal: 16,
-        paddingTop: 8,
-    },
-})

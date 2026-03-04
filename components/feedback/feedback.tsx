@@ -4,7 +4,6 @@ import { Frown, Meh, Smile, ThumbsUp } from 'lucide-react-native'
 
 import {
     ActivityIndicator,
-    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
@@ -42,26 +41,23 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
     }, [feedback, selectedRating, sendFeedback, onClose])
 
     return (
-        <View style={styles.container}>
+        <View className="gap-[14px]">
             <TextInput
                 multiline
-                style={styles.textArea}
+                className="rounded-[10px] border border-border bg-surface p-3 text-sm text-foreground min-h-[110px]"
+                placeholderTextColorClassName="accent-muted"
                 numberOfLines={5}
                 placeholder="Ideas or suggestions to improve our product"
-                placeholderTextColor={COLORS.muted}
                 textAlignVertical="top"
                 value={feedback}
                 onChangeText={setFeedback}
             />
 
-            <View style={styles.ratings}>
+            <View className="flex-row gap-2">
                 {RATINGS.map(({ Icon, label }) => (
                     <TouchableOpacity
                         key={label}
-                        style={[
-                            styles.ratingBtn,
-                            selectedRating === label && styles.ratingSelected,
-                        ]}
+                        className={`flex-1 items-center rounded-lg border py-[10px]${selectedRating === label ? ' border-primary bg-primary/[0.08]' : ' border-border'}`}
                         onPress={() => setSelectedRating(label)}>
                         <Icon
                             color={
@@ -76,61 +72,17 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
             </View>
 
             <TouchableOpacity
-                style={[styles.submitBtn, isLoading && styles.submitDisabled]}
+                className={`rounded-[10px] items-center bg-primary py-[13px]${isLoading ? ' opacity-60' : ''}`}
                 disabled={isLoading}
                 onPress={handleSubmit}>
                 {isLoading ? (
                     <ActivityIndicator color="#fff" size="small" />
                 ) : (
-                    <Text style={styles.submitText}>Submit</Text>
+                    <Text className="text-[15px] font-semibold text-primary-foreground">
+                        Submit
+                    </Text>
                 )}
             </TouchableOpacity>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        gap: 14,
-    },
-    textArea: {
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        padding: 12,
-        fontSize: 14,
-        color: COLORS.foreground,
-        minHeight: 110,
-    },
-    ratings: {
-        flexDirection: 'row',
-        gap: 8,
-    },
-    ratingBtn: {
-        flex: 1,
-        alignItems: 'center',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        paddingVertical: 10,
-    },
-    ratingSelected: {
-        borderColor: COLORS.primary,
-        backgroundColor: 'rgba(0, 111, 238, 0.08)',
-    },
-    submitBtn: {
-        borderRadius: 10,
-        alignItems: 'center',
-        backgroundColor: COLORS.primary,
-        paddingVertical: 13,
-    },
-    submitDisabled: {
-        opacity: 0.6,
-    },
-    submitText: {
-        fontSize: 15,
-        fontWeight: '600',
-        color: '#ffffff',
-    },
-})

@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-
-import { COLORS } from '@/constants/colors'
+import { Modal, Text, TouchableOpacity, View } from 'react-native'
 
 import { LeaderboardForm } from './leaderboard-form'
 
@@ -14,8 +12,12 @@ export const LeaderboardFormModal = () => {
 
     return (
         <>
-            <TouchableOpacity style={styles.trigger} onPress={handleOpen}>
-                <Text style={styles.triggerText}>Join Ranking</Text>
+            <TouchableOpacity
+                className="rounded-lg bg-primary px-[14px] py-2"
+                onPress={handleOpen}>
+                <Text className="text-[13px] font-semibold text-primary-foreground">
+                    Join Ranking
+                </Text>
             </TouchableOpacity>
 
             <Modal
@@ -25,11 +27,16 @@ export const LeaderboardFormModal = () => {
                 onRequestClose={handleClose}>
                 <TouchableOpacity
                     activeOpacity={1}
-                    style={styles.overlay}
+                    className="flex-1 items-center justify-center bg-black/70 p-6"
                     onPress={handleClose}>
-                    <TouchableOpacity activeOpacity={1} style={styles.sheet} onPress={() => {}}>
-                        <Text style={styles.title}>Join the Ranking</Text>
-                        <Text style={styles.subtitle}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        className="w-full gap-4 rounded-2xl border border-border bg-surface p-6"
+                        onPress={() => {}}>
+                        <Text className="text-lg font-bold text-foreground">
+                            Join the Ranking
+                        </Text>
+                        <Text className="text-[13px] text-muted -mt-2">
                             Enter your username to join the leaderboard.
                         </Text>
                         <LeaderboardForm onSuccess={handleClose} />
@@ -39,43 +46,3 @@ export const LeaderboardFormModal = () => {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    trigger: {
-        borderRadius: 8,
-        backgroundColor: COLORS.primary,
-        paddingHorizontal: 14,
-        paddingVertical: 8,
-    },
-    triggerText: {
-        fontSize: 13,
-        fontWeight: '600',
-        color: '#ffffff',
-    },
-    overlay: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        padding: 24,
-    },
-    sheet: {
-        width: '100%',
-        gap: 16,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        padding: 24,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: COLORS.foreground,
-    },
-    subtitle: {
-        fontSize: 13,
-        color: COLORS.muted,
-        marginTop: -8,
-    },
-})

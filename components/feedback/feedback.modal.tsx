@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import { MessageSquare, X } from 'lucide-react-native'
 
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, Text, TouchableOpacity, View } from 'react-native'
 
 import { COLORS } from '@/constants/colors'
 
@@ -16,9 +16,11 @@ export const FeedbackModal = () => {
 
     return (
         <>
-            <TouchableOpacity style={styles.trigger} onPress={handleOpen}>
+            <TouchableOpacity
+                className="flex-row items-center gap-[6px] rounded-lg border border-border px-[10px] py-[6px]"
+                onPress={handleOpen}>
                 <MessageSquare color={COLORS.muted} size={14} />
-                <Text style={styles.triggerText}>Feedback</Text>
+                <Text className="text-[13px] text-muted">Feedback</Text>
             </TouchableOpacity>
 
             <Modal
@@ -28,15 +30,18 @@ export const FeedbackModal = () => {
                 onRequestClose={handleClose}>
                 <TouchableOpacity
                     activeOpacity={1}
-                    style={styles.overlay}
+                    className="flex-1 items-center justify-center bg-black/70 p-6"
                     onPress={handleClose}>
-                    <TouchableOpacity activeOpacity={1} style={styles.sheet} onPress={() => {}}>
-                        <View style={styles.sheetHeader}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        className="w-full gap-4 rounded-2xl border border-border bg-surface p-6"
+                        onPress={() => {}}>
+                        <View className="flex-row items-start justify-between">
                             <View>
-                                <Text style={styles.title}>
+                                <Text className="text-[17px] font-bold text-foreground">
                                     Share your thoughts
                                 </Text>
-                                <Text style={styles.subtitle}>
+                                <Text className="mt-[3px] text-[13px] text-muted">
                                     We&apos;d love to hear your feedback.
                                 </Text>
                             </View>
@@ -51,51 +56,3 @@ export const FeedbackModal = () => {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    trigger: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-    },
-    triggerText: {
-        fontSize: 13,
-        color: COLORS.muted,
-    },
-    overlay: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        padding: 24,
-    },
-    sheet: {
-        width: '100%',
-        gap: 16,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-        padding: 24,
-    },
-    sheetHeader: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-    },
-    title: {
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: COLORS.foreground,
-    },
-    subtitle: {
-        marginTop: 3,
-        fontSize: 13,
-        color: COLORS.muted,
-    },
-})

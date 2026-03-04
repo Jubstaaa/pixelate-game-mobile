@@ -2,9 +2,8 @@ import React, { useCallback } from 'react'
 
 import { Image } from '@/lib/image'
 import { useRouter } from 'expo-router'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-import { COLORS } from '@/constants/colors'
 import { addImageResizeParams } from '@/lib/image-url'
 
 import type { CategoryCardProps } from './category-card.types'
@@ -31,95 +30,45 @@ export const CategoryCard = ({ item }: CategoryCardProps) => {
     )
 
     return (
-        <View style={[styles.card, !item.isActive && styles.inactive]}>
-            <View style={styles.body}>
+        <View
+            className={`rounded-[14px] overflow-hidden border border-border bg-surface${!item.isActive ? ' opacity-40' : ''}`}>
+            <View className="items-center gap-3 p-6">
                 <Image
-                    style={styles.icon}
+                    style={{ width: 80, height: 80 }}
                     contentFit="contain"
                     source={{ uri: addImageResizeParams(item.icon, 128, 128) }}
                 />
-                <Text style={styles.name}>{item.name}</Text>
+                <Text className="text-[16px] font-semibold text-foreground">
+                    {item.name}
+                </Text>
             </View>
 
-            <View style={styles.footer}>
+            <View className="flex-row justify-center gap-3 border-t border-border bg-white/10 p-4">
                 {item.isActive ? (
                     <>
                         <TouchableOpacity
-                            style={styles.btn}
+                            className="rounded-lg border border-border px-5 py-2"
                             onPress={handleEasyPress}>
-                            <Text style={styles.btnText}>Easy</Text>
+                            <Text className="text-sm font-medium text-foreground">
+                                Easy
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={styles.btn}
+                            className="rounded-lg border border-border px-5 py-2"
                             onPress={handleHardPress}>
-                            <Text style={styles.btnText}>Hard</Text>
+                            <Text className="text-sm font-medium text-foreground">
+                                Hard
+                            </Text>
                         </TouchableOpacity>
                     </>
                 ) : (
-                    <View style={styles.comingSoon}>
-                        <Text style={styles.comingSoonText}>Coming Soon</Text>
+                    <View className="rounded-full border border-border px-3.5 py-[6px]">
+                        <Text className="text-[13px] text-muted">
+                            Coming Soon
+                        </Text>
                     </View>
                 )}
             </View>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    card: {
-        borderRadius: 14,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
-    },
-    inactive: {
-        opacity: 0.4,
-    },
-    body: {
-        alignItems: 'center',
-        gap: 12,
-        padding: 24,
-    },
-    icon: {
-        width: 80,
-        height: 80,
-    },
-    name: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: COLORS.foreground,
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        gap: 12,
-        borderTopWidth: 1,
-        borderTopColor: COLORS.border,
-        backgroundColor: 'rgba(255, 255, 255, 0.03)',
-        padding: 16,
-    },
-    btn: {
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        paddingHorizontal: 20,
-        paddingVertical: 8,
-    },
-    btnText: {
-        fontSize: 14,
-        fontWeight: '500',
-        color: COLORS.foreground,
-    },
-    comingSoon: {
-        borderRadius: 9999,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        paddingHorizontal: 14,
-        paddingVertical: 6,
-    },
-    comingSoonText: {
-        fontSize: 13,
-        color: COLORS.muted,
-    },
-})

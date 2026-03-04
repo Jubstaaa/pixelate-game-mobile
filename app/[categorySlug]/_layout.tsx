@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { Slot, useLocalSearchParams } from 'expo-router'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Header } from '@/components/header/header'
@@ -19,12 +19,12 @@ const CategoryLayout = () => {
     )
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.inner}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#000000' }}>
+            <View className="flex-1 gap-3 px-3 pt-2">
                 {category ? (
                     <Header category={category} />
                 ) : (
-                    <View style={styles.headerPlaceholder}>
+                    <View className="h-14 items-center justify-center">
                         <ActivityIndicator color={COLORS.primary} />
                     </View>
                 )}
@@ -33,23 +33,5 @@ const CategoryLayout = () => {
         </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    inner: {
-        flex: 1,
-        gap: 12,
-        paddingHorizontal: 12,
-        paddingTop: 8,
-    },
-    headerPlaceholder: {
-        height: 56,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-})
 
 export default CategoryLayout

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 
 import { Trophy } from 'lucide-react-native'
 
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 
 import { COLORS } from '@/constants/colors'
 import { useGetDeviceQuery, useGetLeaderboardQuery } from '@/lib/api/game-api'
@@ -40,28 +40,27 @@ export const Leaderboard = ({
             const isCurrentUser = item.device?.username === device?.username
             return (
                 <View
-                    style={[
-                        styles.row,
-                        { backgroundColor: ROW_BG[index] ?? 'transparent' },
-                        isCurrentUser && styles.currentUserRow,
-                    ]}>
+                    className={`flex-row items-center rounded-lg px-3 py-[10px] mb-1${isCurrentUser ? ' border border-primary bg-primary/10' : ''}`}
+                    style={{
+                        backgroundColor: isCurrentUser
+                            ? 'rgba(0,111,238,0.1)'
+                            : (ROW_BG[index] ?? 'transparent'),
+                    }}>
                     <Text
-                        style={[
-                            styles.rankText,
-                            isCurrentUser && styles.currentUserText,
-                        ]}
+                        className={`text-sm text-foreground${isCurrentUser ? ' font-bold text-primary' : ''}`}
+                        style={{ flex: 0.8 }}
                         numberOfLines={1}>
                         {getRankEmoji(index)}
                     </Text>
                     <Text
-                        style={[
-                            styles.usernameText,
-                            isCurrentUser && styles.currentUserText,
-                        ]}
+                        className={`text-sm text-foreground${isCurrentUser ? ' font-bold text-primary' : ''}`}
+                        style={{ flex: 3 }}
                         numberOfLines={1}>
                         {item.device.username}
                     </Text>
-                    <View style={styles.scoreCell}>
+                    <View
+                        className="flex-row items-center justify-end gap-1"
+                        style={{ flex: 1 }}>
                         <Trophy
                             color={
                                 isCurrentUser ? COLORS.primary : COLORS.muted
@@ -69,10 +68,7 @@ export const Leaderboard = ({
                             size={14}
                         />
                         <Text
-                            style={[
-                                styles.scoreText,
-                                isCurrentUser && styles.currentUserText,
-                            ]}>
+                            className={`text-sm text-foreground${isCurrentUser ? ' font-bold text-primary' : ''}`}>
                             {item.maxStreak}
                         </Text>
                     </View>
@@ -85,18 +81,28 @@ export const Leaderboard = ({
     if (isLoading) return <LeaderboardLoader />
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={[styles.headerText, { flex: 0.8 }]}>Rank</Text>
-                <Text style={[styles.headerText, { flex: 3 }]}>User</Text>
-                <Text style={[styles.headerText, styles.headerRight, { flex: 1 }]}>
+        <View className="flex-1">
+            <View className="flex-row border-b border-border px-3 py-2 mb-1">
+                <Text
+                    className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted"
+                    style={{ flex: 0.8 }}>
+                    Rank
+                </Text>
+                <Text
+                    className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted"
+                    style={{ flex: 3 }}>
+                    User
+                </Text>
+                <Text
+                    className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted text-right"
+                    style={{ flex: 1 }}>
                     Score
                 </Text>
             </View>
 
             <FlatList
                 ListEmptyComponent={
-                    <Text style={styles.empty}>
+                    <Text className="mt-6 text-center text-muted">
                         No entries yet. Be the first!
                     </Text>
                 }
@@ -107,70 +113,3 @@ export const Leaderboard = ({
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderBottomColor: COLORS.border,
-        paddingHorizontal: 12,
-        paddingVertical: 8,
-        marginBottom: 4,
-    },
-    headerText: {
-        fontSize: 12,
-        fontWeight: '600',
-        letterSpacing: 0.5,
-        color: COLORS.muted,
-        textTransform: 'uppercase',
-    },
-    headerRight: {
-        textAlign: 'right',
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 8,
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-        marginBottom: 4,
-    },
-    currentUserRow: {
-        borderWidth: 1,
-        borderColor: COLORS.primary,
-        backgroundColor: 'rgba(0, 111, 238, 0.1)',
-    },
-    rankText: {
-        flex: 0.8,
-        fontSize: 14,
-        color: COLORS.foreground,
-    },
-    usernameText: {
-        flex: 3,
-        fontSize: 14,
-        color: COLORS.foreground,
-    },
-    currentUserText: {
-        fontWeight: 'bold',
-        color: COLORS.primary,
-    },
-    scoreCell: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        gap: 4,
-    },
-    scoreText: {
-        fontSize: 14,
-        color: COLORS.foreground,
-    },
-    empty: {
-        marginTop: 24,
-        textAlign: 'center',
-        color: COLORS.muted,
-    },
-})
