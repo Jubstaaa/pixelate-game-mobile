@@ -5,8 +5,6 @@ import { Provider } from 'react-redux'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 
-import '../global.css'
-
 import { COLORS } from '@/constants/colors'
 import { store } from '@/store'
 

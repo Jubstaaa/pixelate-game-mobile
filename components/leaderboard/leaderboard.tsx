@@ -2,12 +2,11 @@ import React, { useCallback } from 'react'
 
 import { Trophy } from 'lucide-react-native'
 
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 
 import { COLORS } from '@/constants/colors'
 import { useGetDeviceQuery, useGetLeaderboardQuery } from '@/lib/api/game-api'
 import type { LeaderboardEntry } from '@/lib/api/game-api.types'
-import { cn } from '@/lib/cn'
 
 import { LeaderboardLoader } from './leaderboard.loader'
 import type { LeaderboardProps } from './leaderboard.types'
@@ -20,9 +19,9 @@ const getRankEmoji = (index: number): string => {
 }
 
 const ROW_BG: Record<number, string> = {
-    0: 'bg-[rgba(234,179,8,0.08)]',
-    1: 'bg-[rgba(161,161,170,0.08)]',
-    2: 'bg-[rgba(249,115,22,0.08)]',
+    0: 'rgba(234,179,8,0.08)',
+    1: 'rgba(161,161,170,0.08)',
+    2: 'rgba(249,115,22,0.08)',
 }
 
 export const Leaderboard = ({
@@ -41,35 +40,28 @@ export const Leaderboard = ({
             const isCurrentUser = item.device?.username === device?.username
             return (
                 <View
-                    className={cn(
-                        'mb-1 flex-row items-center rounded-lg px-3 py-2.5',
-                        ROW_BG[index],
-                        isCurrentUser && 'border border-primary bg-primary/10'
-                    )}>
+                    style={[
+                        styles.row,
+                        { backgroundColor: ROW_BG[index] ?? 'transparent' },
+                        isCurrentUser && styles.currentUserRow,
+                    ]}>
                     <Text
-                        className={cn(
-                            'text-sm',
-                            isCurrentUser
-                                ? 'font-bold text-primary'
-                                : 'text-foreground'
-                        )}
-                        style={{ flex: 0.8 }}>
+                        style={[
+                            styles.rankText,
+                            isCurrentUser && styles.currentUserText,
+                        ]}
+                        numberOfLines={1}>
                         {getRankEmoji(index)}
                     </Text>
                     <Text
-                        className={cn(
-                            'text-sm',
-                            isCurrentUser
-                                ? 'font-bold text-primary'
-                                : 'text-foreground'
-                        )}
-                        numberOfLines={1}
-                        style={{ flex: 3 }}>
+                        style={[
+                            styles.usernameText,
+                            isCurrentUser && styles.currentUserText,
+                        ]}
+                        numberOfLines={1}>
                         {item.device.username}
                     </Text>
-                    <View
-                        className="flex-row items-center justify-end gap-1"
-                        style={{ flex: 1 }}>
+                    <View style={styles.scoreCell}>
                         <Trophy
                             color={
                                 isCurrentUser ? COLORS.primary : COLORS.muted
@@ -77,12 +69,10 @@ export const Leaderboard = ({
                             size={14}
                         />
                         <Text
-                            className={cn(
-                                'text-sm',
-                                isCurrentUser
-                                    ? 'font-bold text-primary'
-                                    : 'text-foreground'
-                            )}>
+                            style={[
+                                styles.scoreText,
+                                isCurrentUser && styles.currentUserText,
+                            ]}>
                             {item.maxStreak}
                         </Text>
                     </View>
@@ -95,28 +85,18 @@ export const Leaderboard = ({
     if (isLoading) return <LeaderboardLoader />
 
     return (
-        <View className="flex-1">
-            <View className="mb-1 flex-row border-b border-border px-3 py-2">
-                <Text
-                    className="text-xs font-semibold tracking-[0.5] text-muted uppercase"
-                    style={{ flex: 0.8 }}>
-                    Rank
-                </Text>
-                <Text
-                    className="text-xs font-semibold tracking-[0.5] text-muted uppercase"
-                    style={{ flex: 3 }}>
-                    User
-                </Text>
-                <Text
-                    className="text-right text-xs font-semibold tracking-[0.5] text-muted uppercase"
-                    style={{ flex: 1 }}>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={[styles.headerText, { flex: 0.8 }]}>Rank</Text>
+                <Text style={[styles.headerText, { flex: 3 }]}>User</Text>
+                <Text style={[styles.headerText, styles.headerRight, { flex: 1 }]}>
                     Score
                 </Text>
             </View>
 
             <FlatList
                 ListEmptyComponent={
-                    <Text className="mt-6 text-center text-muted">
+                    <Text style={styles.empty}>
                         No entries yet. Be the first!
                     </Text>
                 }
@@ -127,3 +107,70 @@ export const Leaderboard = ({
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    header: {
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.border,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        marginBottom: 4,
+    },
+    headerText: {
+        fontSize: 12,
+        fontWeight: '600',
+        letterSpacing: 0.5,
+        color: COLORS.muted,
+        textTransform: 'uppercase',
+    },
+    headerRight: {
+        textAlign: 'right',
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        marginBottom: 4,
+    },
+    currentUserRow: {
+        borderWidth: 1,
+        borderColor: COLORS.primary,
+        backgroundColor: 'rgba(0, 111, 238, 0.1)',
+    },
+    rankText: {
+        flex: 0.8,
+        fontSize: 14,
+        color: COLORS.foreground,
+    },
+    usernameText: {
+        flex: 3,
+        fontSize: 14,
+        color: COLORS.foreground,
+    },
+    currentUserText: {
+        fontWeight: 'bold',
+        color: COLORS.primary,
+    },
+    scoreCell: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: 4,
+    },
+    scoreText: {
+        fontSize: 14,
+        color: COLORS.foreground,
+    },
+    empty: {
+        marginTop: 24,
+        textAlign: 'center',
+        color: COLORS.muted,
+    },
+})

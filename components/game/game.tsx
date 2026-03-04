@@ -6,6 +6,7 @@ import { Image } from '@/lib/image'
 import {
     ActivityIndicator,
     Keyboard,
+    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
@@ -126,7 +127,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
 
     if (isLoading || isCharsLoading || isDeviceLoading) {
         return (
-            <View className="flex-1 items-center justify-center">
+            <View style={styles.loading}>
                 <ActivityIndicator color={COLORS.primary} size="large" />
             </View>
         )
@@ -135,7 +136,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
     const imageUrl = addImageResizeParams(data.characterImage, 800, 800)
 
     return (
-        <View className="flex-1 items-center gap-5 pt-3">
+        <View style={styles.container}>
             <ConfettiCannon
                 ref={confettiRef}
                 fadeOut
@@ -145,7 +146,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 origin={{ x: -20, y: 0 }}
             />
 
-            <View className="rounded-3.5 overflow-hidden border border-border">
+            <View style={styles.imageWrap}>
                 <PixelatedImage
                     count={isRevealed ? 6 : (data.count ?? 0)}
                     imageUrl={imageUrl}
@@ -154,31 +155,27 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 />
             </View>
 
-            <View className="flex-row gap-2.5">
-                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1.75">
+            <View style={styles.chips}>
+                <View style={styles.chip}>
                     <Flame color={COLORS.warning} size={16} />
-                    <Text
-                        className="text-[15px] font-bold"
-                        style={{ color: COLORS.warning }}>
+                    <Text style={[styles.chipText, { color: COLORS.warning }]}>
                         {data.streak ?? 0}
                     </Text>
                 </View>
-                <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1.75">
+                <View style={styles.chip}>
                     <Trophy color={COLORS.success} size={16} />
-                    <Text
-                        className="text-[15px] font-bold"
-                        style={{ color: COLORS.success }}>
+                    <Text style={[styles.chipText, { color: COLORS.success }]}>
                         {data.maxStreak ?? 0}
                     </Text>
                 </View>
             </View>
 
-            <View className="w-full flex-row items-start gap-2.5 px-4">
-                <View className="relative z-10 flex-1">
+            <View style={styles.inputRow}>
+                <View style={styles.inputWrap}>
                     <TextInput
                         autoCapitalize="none"
                         autoCorrect={false}
-                        className="rounded-2.5 border border-border bg-surface px-3.5 py-3.25 text-[15px] text-foreground"
+                        style={styles.input}
                         placeholder="Type to search..."
                         placeholderTextColor={COLORS.muted}
                         value={input}
@@ -186,22 +183,14 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                         onFocus={handleInputFocus}
                     />
                     {showDropdown && filteredCharacters.length > 0 && (
-                        <View
-                            className="rounded-2.5 absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden border border-border bg-surface"
-                            style={{
-                                elevation: 8,
-                                shadowColor: '#000',
-                                shadowOffset: { width: 0, height: 4 },
-                                shadowOpacity: 0.3,
-                                shadowRadius: 8,
-                            }}>
+                        <View style={styles.dropdown}>
                             {filteredCharacters.map(item => (
                                 <TouchableOpacity
                                     key={item.id}
-                                    className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
+                                    style={styles.dropdownItem}
                                     onPress={() => handleSelect(item)}>
                                     <Image
-                                        className="size-8 rounded-2xl"
+                                        style={styles.dropdownIcon}
                                         contentFit="cover"
                                         source={{
                                             uri: addImageResizeParams(
@@ -211,7 +200,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                                             ),
                                         }}
                                     />
-                                    <Text className="text-sm text-foreground">
+                                    <Text style={styles.dropdownText}>
                                         {item.name}
                                     </Text>
                                 </TouchableOpacity>
@@ -228,3 +217,99 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    loading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        gap: 20,
+        paddingTop: 12,
+    },
+    imageWrap: {
+        borderRadius: 14,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: COLORS.border,
+    },
+    chips: {
+        flexDirection: 'row',
+        gap: 10,
+    },
+    chip: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        borderRadius: 9999,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.surface,
+        paddingHorizontal: 14,
+        paddingVertical: 7,
+    },
+    chipText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
+    inputRow: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        gap: 10,
+        paddingHorizontal: 16,
+    },
+    inputWrap: {
+        flex: 1,
+        zIndex: 10,
+    },
+    input: {
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.surface,
+        paddingHorizontal: 14,
+        paddingVertical: 13,
+        fontSize: 15,
+        color: COLORS.foreground,
+    },
+    dropdown: {
+        position: 'absolute',
+        top: '100%',
+        left: 0,
+        right: 0,
+        zIndex: 20,
+        marginTop: 4,
+        borderRadius: 10,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.surface,
+        elevation: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+    },
+    dropdownItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.border,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+    },
+    dropdownIcon: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+    },
+    dropdownText: {
+        fontSize: 14,
+        color: COLORS.foreground,
+    },
+})

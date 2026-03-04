@@ -1,17 +1,64 @@
 import React from 'react'
 
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+
+import { COLORS } from '@/constants/colors'
 
 export const CategoryCardLoader = () => (
-    <View className="rounded-3.5 overflow-hidden border border-border bg-surface">
-        <View className="items-center gap-3 p-6">
-            <View className="size-20 rounded-full bg-surface-hover opacity-60" />
-            <View className="h-5 w-24 rounded bg-surface-hover opacity-60" />
+    <View style={styles.card}>
+        <View style={styles.body}>
+            <View style={styles.iconPlaceholder} />
+            <View style={styles.namePlaceholder} />
         </View>
 
-        <View className="flex-row justify-center gap-3 border-t border-border bg-white/3 p-4">
-            <View className="h-9 w-16 rounded-lg bg-surface-hover opacity-60" />
-            <View className="h-9 w-16 rounded-lg bg-surface-hover opacity-60" />
+        <View style={styles.footer}>
+            <View style={styles.btnPlaceholder} />
+            <View style={styles.btnPlaceholder} />
         </View>
     </View>
 )
+
+const styles = StyleSheet.create({
+    card: {
+        borderRadius: 14,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.surface,
+    },
+    body: {
+        alignItems: 'center',
+        gap: 12,
+        padding: 24,
+    },
+    iconPlaceholder: {
+        width: 80,
+        height: 80,
+        borderRadius: 9999,
+        backgroundColor: COLORS.surfaceHover,
+        opacity: 0.6,
+    },
+    namePlaceholder: {
+        height: 20,
+        width: 96,
+        borderRadius: 4,
+        backgroundColor: COLORS.surfaceHover,
+        opacity: 0.6,
+    },
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 12,
+        borderTopWidth: 1,
+        borderTopColor: COLORS.border,
+        backgroundColor: 'rgba(255, 255, 255, 0.03)',
+        padding: 16,
+    },
+    btnPlaceholder: {
+        height: 36,
+        width: 64,
+        borderRadius: 8,
+        backgroundColor: COLORS.surfaceHover,
+        opacity: 0.6,
+    },
+})

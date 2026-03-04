@@ -4,6 +4,7 @@ import { Frown, Meh, Smile, ThumbsUp } from 'lucide-react-native'
 
 import {
     ActivityIndicator,
+    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
@@ -12,7 +13,6 @@ import {
 
 import { COLORS } from '@/constants/colors'
 import { useSendFeedbackMutation } from '@/lib/api/game-api'
-import { cn } from '@/lib/cn'
 
 import type { FeedbackProps } from './feedback.types'
 
@@ -42,10 +42,10 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
     }, [feedback, selectedRating, sendFeedback, onClose])
 
     return (
-        <View className="gap-3.5">
+        <View style={styles.container}>
             <TextInput
                 multiline
-                className="rounded-2.5 min-h-27.5 border border-border bg-surface p-3 text-sm text-foreground"
+                style={styles.textArea}
                 numberOfLines={5}
                 placeholder="Ideas or suggestions to improve our product"
                 placeholderTextColor={COLORS.muted}
@@ -54,16 +54,14 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
                 onChangeText={setFeedback}
             />
 
-            <View className="flex-row gap-2">
+            <View style={styles.ratings}>
                 {RATINGS.map(({ Icon, label }) => (
                     <TouchableOpacity
                         key={label}
-                        className={cn(
-                            'flex-1 items-center rounded-lg border py-2.5',
-                            selectedRating === label
-                                ? 'border-primary bg-primary/8'
-                                : 'border-border'
-                        )}
+                        style={[
+                            styles.ratingBtn,
+                            selectedRating === label && styles.ratingSelected,
+                        ]}
                         onPress={() => setSelectedRating(label)}>
                         <Icon
                             color={
@@ -78,20 +76,61 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
             </View>
 
             <TouchableOpacity
-                className={cn(
-                    'rounded-2.5 items-center bg-primary py-3.25',
-                    isLoading && 'opacity-60'
-                )}
+                style={[styles.submitBtn, isLoading && styles.submitDisabled]}
                 disabled={isLoading}
                 onPress={handleSubmit}>
                 {isLoading ? (
                     <ActivityIndicator color="#fff" size="small" />
                 ) : (
-                    <Text className="text-[15px] font-semibold text-white">
-                        Submit
-                    </Text>
+                    <Text style={styles.submitText}>Submit</Text>
                 )}
             </TouchableOpacity>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        gap: 14,
+    },
+    textArea: {
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.surface,
+        padding: 12,
+        fontSize: 14,
+        color: COLORS.foreground,
+        minHeight: 110,
+    },
+    ratings: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    ratingBtn: {
+        flex: 1,
+        alignItems: 'center',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        paddingVertical: 10,
+    },
+    ratingSelected: {
+        borderColor: COLORS.primary,
+        backgroundColor: 'rgba(0, 111, 238, 0.08)',
+    },
+    submitBtn: {
+        borderRadius: 10,
+        alignItems: 'center',
+        backgroundColor: COLORS.primary,
+        paddingVertical: 13,
+    },
+    submitDisabled: {
+        opacity: 0.6,
+    },
+    submitText: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: '#ffffff',
+    },
+})

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { useLocalSearchParams } from 'expo-router'
-import { ActivityIndicator, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 
 import { COLORS } from '@/constants/colors'
 import { useGetCategoriesQuery } from '@/lib/api/game-api'
@@ -22,7 +22,7 @@ export const GameScreen = ({ levelType }: GameScreenProps) => {
 
     if (isLoading) {
         return (
-            <View className="flex-1 items-center justify-center">
+            <View style={styles.center}>
                 <ActivityIndicator color={COLORS.primary} />
             </View>
         )
@@ -30,13 +30,23 @@ export const GameScreen = ({ levelType }: GameScreenProps) => {
 
     if (!category) {
         return (
-            <View className="flex-1 items-center justify-center">
-                <Text className="text-base text-muted">
-                    Category not found.
-                </Text>
+            <View style={styles.center}>
+                <Text style={styles.notFound}>Category not found.</Text>
             </View>
         )
     }
 
     return <Game categoryId={category.id} levelType={levelType} />
 }
+
+const styles = StyleSheet.create({
+    center: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    notFound: {
+        fontSize: 16,
+        color: COLORS.muted,
+    },
+})

@@ -37,8 +37,7 @@ export const PixelatedImage = ({
     if (!image) {
         return (
             <View
-                className="items-center justify-center rounded-xl bg-surface"
-                style={{ height: size, width: size }}>
+                style={{ height: size, width: size, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: COLORS.surface }}>
                 <ActivityIndicator color={COLORS.primary} size="large" />
             </View>
         )
