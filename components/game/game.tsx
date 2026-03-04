@@ -194,7 +194,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                         <TextInput
                             autoCapitalize="none"
                             autoCorrect={false}
-                            className="rounded-2.5 border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
+                            className="rounded-[10px] border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
                             placeholderTextColorClassName="accent-muted"
                             placeholder="Type to search..."
                             value={input}
