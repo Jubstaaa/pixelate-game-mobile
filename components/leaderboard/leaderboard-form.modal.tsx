@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import { Modal, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, Text, TouchableOpacity } from 'react-native'
 
 import { LeaderboardForm } from './leaderboard-form'
 
@@ -36,7 +36,7 @@ export const LeaderboardFormModal = () => {
                         <Text className="text-lg font-bold text-foreground">
                             Join the Ranking
                         </Text>
-                        <Text className="text-[13px] text-muted -mt-2">
+                        <Text className="-mt-2 text-[13px] text-muted">
                             Enter your username to join the leaderboard.
                         </Text>
                         <LeaderboardForm onSuccess={handleClose} />

@@ -3,9 +3,9 @@ import React from 'react'
 import { View } from 'react-native'
 
 export const CategoryCardLoader = () => (
-    <View className="rounded-[14px] overflow-hidden border border-border bg-surface">
+    <View className="overflow-hidden rounded-[14px] border border-border bg-surface">
         <View className="items-center gap-3 p-6">
-            <View className="w-20 h-20 rounded-full bg-surface-hover opacity-60" />
+            <View className="h-20 w-20 rounded-full bg-surface-hover opacity-60" />
             <View className="h-5 w-24 rounded bg-surface-hover opacity-60" />
         </View>
 

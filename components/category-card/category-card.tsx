@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 
-import { Image } from '@/lib/image'
 import { useRouter } from 'expo-router'
 import { Text, TouchableOpacity, View } from 'react-native'
 
+import { Image } from '@/lib/image'
 import { addImageResizeParams } from '@/lib/image-url'
 
 import type { CategoryCardProps } from './category-card.types'
@@ -31,12 +31,12 @@ export const CategoryCard = ({ item }: CategoryCardProps) => {
 
     return (
         <View
-            className={`rounded-[14px] overflow-hidden border border-border bg-surface${!item.isActive ? ' opacity-40' : ''}`}>
+            className={`overflow-hidden rounded-[14px] border border-border bg-surface${!item.isActive ? 'opacity-40' : ''}`}>
             <View className="items-center gap-3 p-6">
                 <Image
-                    style={{ width: 80, height: 80 }}
                     contentFit="contain"
                     source={{ uri: addImageResizeParams(item.icon, 128, 128) }}
+                    style={{ width: 80, height: 80 }}
                 />
                 <Text className="text-[16px] font-semibold text-foreground">
                     {item.name}

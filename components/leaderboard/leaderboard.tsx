@@ -40,22 +40,22 @@ export const Leaderboard = ({
             const isCurrentUser = item.device?.username === device?.username
             return (
                 <View
-                    className={`flex-row items-center rounded-lg px-3 py-[10px] mb-1${isCurrentUser ? ' border border-primary bg-primary/10' : ''}`}
+                    className={`flex-row items-center rounded-lg px-3 py-[10px] mb-1${isCurrentUser ? 'border border-primary bg-primary/10' : ''}`}
                     style={{
                         backgroundColor: isCurrentUser
                             ? 'rgba(0,111,238,0.1)'
                             : (ROW_BG[index] ?? 'transparent'),
                     }}>
                     <Text
-                        className={`text-sm text-foreground${isCurrentUser ? ' font-bold text-primary' : ''}`}
-                        style={{ flex: 0.8 }}
-                        numberOfLines={1}>
+                        className={`text-sm text-foreground${isCurrentUser ? 'font-bold text-primary' : ''}`}
+                        numberOfLines={1}
+                        style={{ flex: 0.8 }}>
                         {getRankEmoji(index)}
                     </Text>
                     <Text
-                        className={`text-sm text-foreground${isCurrentUser ? ' font-bold text-primary' : ''}`}
-                        style={{ flex: 3 }}
-                        numberOfLines={1}>
+                        className={`text-sm text-foreground${isCurrentUser ? 'font-bold text-primary' : ''}`}
+                        numberOfLines={1}
+                        style={{ flex: 3 }}>
                         {item.device.username}
                     </Text>
                     <View
@@ -68,7 +68,7 @@ export const Leaderboard = ({
                             size={14}
                         />
                         <Text
-                            className={`text-sm text-foreground${isCurrentUser ? ' font-bold text-primary' : ''}`}>
+                            className={`text-sm text-foreground${isCurrentUser ? 'font-bold text-primary' : ''}`}>
                             {item.maxStreak}
                         </Text>
                     </View>
@@ -82,19 +82,19 @@ export const Leaderboard = ({
 
     return (
         <View className="flex-1">
-            <View className="flex-row border-b border-border px-3 py-2 mb-1">
+            <View className="mb-1 flex-row border-b border-border px-3 py-2">
                 <Text
-                    className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted"
+                    className="text-[12px] font-semibold tracking-[0.5px] text-muted uppercase"
                     style={{ flex: 0.8 }}>
                     Rank
                 </Text>
                 <Text
-                    className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted"
+                    className="text-[12px] font-semibold tracking-[0.5px] text-muted uppercase"
                     style={{ flex: 3 }}>
                     User
                 </Text>
                 <Text
-                    className="text-[12px] font-semibold uppercase tracking-[0.5px] text-muted text-right"
+                    className="text-right text-[12px] font-semibold tracking-[0.5px] text-muted uppercase"
                     style={{ flex: 1 }}>
                     Score
                 </Text>

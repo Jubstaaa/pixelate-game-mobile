@@ -33,16 +33,16 @@ export const LeaderboardForm = ({ onSuccess }: LeaderboardFormProps) => {
             <TextInput
                 autoCapitalize="none"
                 className="rounded-[10px] border border-border bg-surface px-[14px] py-3 text-[15px] text-foreground"
-                placeholderTextColorClassName="accent-muted"
                 editable={!isLoading}
                 placeholder="Username"
+                placeholderTextColorClassName="accent-muted"
                 returnKeyType="done"
                 value={username}
                 onChangeText={setUsername}
                 onSubmitEditing={handleSubmit}
             />
             <TouchableOpacity
-                className={`rounded-[10px] items-center bg-primary py-[13px]${isLoading ? ' opacity-60' : ''}`}
+                className={`items-center rounded-[10px] bg-primary py-[13px]${isLoading ? 'opacity-60' : ''}`}
                 disabled={isLoading}
                 onPress={handleSubmit}>
                 {isLoading ? (

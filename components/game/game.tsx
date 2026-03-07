@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 
 import { Flame, Trophy } from 'lucide-react-native'
 
-import { Image } from '@/lib/image'
 import {
     ActivityIndicator,
     Keyboard,
@@ -22,6 +21,7 @@ import {
     useSubmitGuessMutation,
 } from '@/lib/api/game-api'
 import type { Character, GameData } from '@/lib/api/game-api.types'
+import { Image } from '@/lib/image'
 import { addImageResizeParams } from '@/lib/image-url'
 
 import { LeaderboardDrawer } from '../leaderboard/leaderboard.drawer'
@@ -155,7 +155,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     onPress={handleDismissDropdown}
                 />
             )}
-            <View className='absolute top-0 left-0 bottom-0 right-0 z-50 pointer-events-none'>
+            <View className="pointer-events-none absolute top-0 right-0 bottom-0 left-0 z-50">
                 <ConfettiCannon
                     ref={confettiRef}
                     fadeOut
@@ -166,7 +166,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 />
             </View>
             <View className="flex-1 items-center gap-5 pt-3">
-                <View className="rounded-[14px] overflow-hidden border border-border z-0">
+                <View className="z-0 overflow-hidden rounded-[14px] border border-border">
                     <PixelatedImage
                         count={isRevealed ? 6 : (data.count ?? 0)}
                         imageUrl={imageUrl}
@@ -190,21 +190,23 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     </View>
                 </View>
 
-                <View className="w-full flex-row items-start gap-2.5 px-4" style={{ zIndex: 10 }}>
+                <View
+                    className="w-full flex-row items-start gap-2.5 px-4"
+                    style={{ zIndex: 10 }}>
                     <View className="flex-1" style={{ zIndex: 10 }}>
                         <TextInput
                             autoCapitalize="none"
                             autoCorrect={false}
                             className="rounded-[10px] border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
-                            placeholderTextColorClassName="accent-muted"
                             placeholder="Type to search..."
+                            placeholderTextColorClassName="accent-muted"
                             value={input}
                             onChangeText={handleInputChange}
                             onFocus={handleInputFocus}
                         />
                         {showDropdown && filteredCharacters.length > 0 && (
                             <View
-                                className="absolute left-0 right-0 top-full z-20 mt-1 rounded-[10px] overflow-hidden border border-border bg-surface"
+                                className="absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden rounded-[10px] border border-border bg-surface"
                                 style={{
                                     elevation: 8,
                                     shadowColor: '#000',
@@ -218,11 +220,6 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                                         className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
                                         onPress={() => handleSelect(item)}>
                                         <Image
-                                            style={{
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: 16,
-                                            }}
                                             contentFit="cover"
                                             source={{
                                                 uri: addImageResizeParams(
@@ -230,6 +227,11 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                                                     64,
                                                     64
                                                 ),
+                                            }}
+                                            style={{
+                                                width: 32,
+                                                height: 32,
+                                                borderRadius: 16,
                                             }}
                                         />
                                         <Text className="text-sm text-foreground">

@@ -44,10 +44,10 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
         <View className="gap-[14px]">
             <TextInput
                 multiline
-                className="rounded-[10px] border border-border bg-surface p-3 text-sm text-foreground min-h-[110px]"
-                placeholderTextColorClassName="accent-muted"
+                className="min-h-[110px] rounded-[10px] border border-border bg-surface p-3 text-sm text-foreground"
                 numberOfLines={5}
                 placeholder="Ideas or suggestions to improve our product"
+                placeholderTextColorClassName="accent-muted"
                 textAlignVertical="top"
                 value={feedback}
                 onChangeText={setFeedback}
@@ -57,7 +57,7 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
                 {RATINGS.map(({ Icon, label }) => (
                     <TouchableOpacity
                         key={label}
-                        className={`flex-1 items-center rounded-lg border py-[10px]${selectedRating === label ? ' border-primary bg-primary/[0.08]' : ' border-border'}`}
+                        className={`flex-1 items-center rounded-lg border py-[10px]${selectedRating === label ? 'border-primary bg-primary/[0.08]' : 'border-border'}`}
                         onPress={() => setSelectedRating(label)}>
                         <Icon
                             color={
@@ -72,7 +72,7 @@ export const Feedback = ({ onClose }: FeedbackProps) => {
             </View>
 
             <TouchableOpacity
-                className={`rounded-[10px] items-center bg-primary py-[13px]${isLoading ? ' opacity-60' : ''}`}
+                className={`items-center rounded-[10px] bg-primary py-[13px]${isLoading ? 'opacity-60' : ''}`}
                 disabled={isLoading}
                 onPress={handleSubmit}>
                 {isLoading ? (

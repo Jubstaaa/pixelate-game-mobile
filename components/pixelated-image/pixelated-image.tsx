@@ -37,7 +37,14 @@ export const PixelatedImage = ({
     if (!image) {
         return (
             <View
-                style={{ height: size, width: size, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: COLORS.surface }}>
+                style={{
+                    height: size,
+                    width: size,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 12,
+                    backgroundColor: COLORS.surface,
+                }}>
                 <ActivityIndicator color={COLORS.primary} size="large" />
             </View>
         )
