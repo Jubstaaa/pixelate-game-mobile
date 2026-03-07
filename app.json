@@ -14,7 +14,8 @@
         },
         "ios": {
             "supportsTablet": false,
-            "bundleIdentifier": "com.pixelguess.app",
+            "bundleIdentifier": "com.haccoo.pixelguess",
+            "appleTeamId": "67M6SCS9K9",
             "infoPlist": {
                 "ITSAppUsesNonExemptEncryption": false
             }
@@ -24,7 +25,7 @@
                 "backgroundColor": "#000000",
                 "foregroundImage": "./assets/android-icon-foreground.png"
             },
-            "package": "com.pixelguess.app"
+            "package": "com.haccoo.pixelguess"
         },
         "web": {
             "favicon": "./assets/favicon.png",
