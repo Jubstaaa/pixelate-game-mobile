@@ -14,7 +14,7 @@
         },
         "ios": {
             "supportsTablet": false,
-            "bundleIdentifier": "com.haccoo.pixelguess",
+            "bundleIdentifier": "com.haccoo.pixel-guess",
             "appleTeamId": "67M6SCS9K9",
             "infoPlist": {
                 "ITSAppUsesNonExemptEncryption": false
@@ -25,7 +25,7 @@
                 "backgroundColor": "#000000",
                 "foregroundImage": "./assets/android-icon-foreground.png"
             },
-            "package": "com.haccoo.pixelguess"
+            "package": "com.haccoo.pixel_guess"
         },
         "web": {
             "favicon": "./assets/favicon.png",
