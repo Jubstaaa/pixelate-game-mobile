@@ -5,6 +5,8 @@ import { Flame, Trophy } from 'lucide-react-native'
 import {
     ActivityIndicator,
     Keyboard,
+    KeyboardAvoidingView,
+    Platform,
     Pressable,
     Text,
     TextInput,
@@ -165,90 +167,95 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                     origin={{ x: -20, y: 0 }}
                 />
             </View>
-            <View className="flex-1 items-center gap-5 pt-3">
-                <View className="z-0 overflow-hidden rounded-[14px] border border-border">
-                    <PixelatedImage
-                        count={isRevealed ? 6 : (data.count ?? 0)}
-                        imageUrl={imageUrl}
-                        levelType={levelType}
-                        size={300}
-                    />
-                </View>
-
-                <View className="flex-row gap-2.5">
-                    <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
-                        <Flame color={COLORS.warning} size={16} />
-                        <Text className="text-[15px] font-bold text-warning">
-                            {data.streak ?? 0}
-                        </Text>
-                    </View>
-                    <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
-                        <Trophy color={COLORS.success} size={16} />
-                        <Text className="text-[15px] font-bold text-success">
-                            {data.maxStreak ?? 0}
-                        </Text>
-                    </View>
-                </View>
-
-                <View
-                    className="w-full flex-row items-start gap-2.5 px-4"
-                    style={{ zIndex: 10 }}>
-                    <View className="flex-1" style={{ zIndex: 10 }}>
-                        <TextInput
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            className="rounded-[10px] border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
-                            placeholder="Type to search..."
-                            placeholderTextColorClassName="accent-muted"
-                            value={input}
-                            onChangeText={handleInputChange}
-                            onFocus={handleInputFocus}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                className="flex-1"
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+                <View className="flex-1 items-center gap-5 pt-3">
+                    <View className="z-0 overflow-hidden rounded-[14px] border border-border">
+                        <PixelatedImage
+                            count={isRevealed ? 6 : (data.count ?? 0)}
+                            imageUrl={imageUrl}
+                            levelType={levelType}
+                            size={300}
                         />
-                        {showDropdown && filteredCharacters.length > 0 && (
-                            <View
-                                className="absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden rounded-[10px] border border-border bg-surface"
-                                style={{
-                                    elevation: 8,
-                                    shadowColor: '#000',
-                                    shadowOffset: { width: 0, height: 4 },
-                                    shadowOpacity: 0.3,
-                                    shadowRadius: 8,
-                                }}>
-                                {filteredCharacters.map(item => (
-                                    <TouchableOpacity
-                                        key={item.id}
-                                        className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
-                                        onPress={() => handleSelect(item)}>
-                                        <Image
-                                            contentFit="cover"
-                                            source={{
-                                                uri: addImageResizeParams(
-                                                    item.characterImage,
-                                                    64,
-                                                    64
-                                                ),
-                                            }}
-                                            style={{
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: 16,
-                                            }}
-                                        />
-                                        <Text className="text-sm text-foreground">
-                                            {item.name}
-                                        </Text>
-                                    </TouchableOpacity>
-                                ))}
-                            </View>
-                        )}
                     </View>
 
-                    <LeaderboardDrawer
-                        categoryId={categoryId}
-                        levelType={levelType}
-                    />
+                    <View className="flex-row gap-2.5">
+                        <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
+                            <Flame color={COLORS.warning} size={16} />
+                            <Text className="text-[15px] font-bold text-warning">
+                                {data.streak ?? 0}
+                            </Text>
+                        </View>
+                        <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
+                            <Trophy color={COLORS.success} size={16} />
+                            <Text className="text-[15px] font-bold text-success">
+                                {data.maxStreak ?? 0}
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View
+                        className="w-full flex-row items-start gap-2.5 px-4"
+                        style={{ zIndex: 10 }}>
+                        <View className="flex-1" style={{ zIndex: 10 }}>
+                            <TextInput
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                className="rounded-[10px] border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
+                                placeholder="Type to search..."
+                                placeholderTextColorClassName="accent-muted"
+                                value={input}
+                                onChangeText={handleInputChange}
+                                onFocus={handleInputFocus}
+                            />
+                            {showDropdown && filteredCharacters.length > 0 && (
+                                <View
+                                    className="absolute right-0 bottom-full left-0 z-20 mb-1 overflow-hidden rounded-[10px] border border-border bg-surface"
+                                    style={{
+                                        elevation: 8,
+                                        shadowColor: '#000',
+                                        shadowOffset: { width: 0, height: -4 },
+                                        shadowOpacity: 0.3,
+                                        shadowRadius: 8,
+                                    }}>
+                                    {filteredCharacters.map(item => (
+                                        <TouchableOpacity
+                                            key={item.id}
+                                            className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
+                                            onPress={() => handleSelect(item)}>
+                                            <Image
+                                                contentFit="cover"
+                                                source={{
+                                                    uri: addImageResizeParams(
+                                                        item.characterImage,
+                                                        64,
+                                                        64
+                                                    ),
+                                                }}
+                                                style={{
+                                                    width: 32,
+                                                    height: 32,
+                                                    borderRadius: 16,
+                                                }}
+                                            />
+                                            <Text className="text-sm text-foreground">
+                                                {item.name}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                            )}
+                        </View>
+
+                        <LeaderboardDrawer
+                            categoryId={categoryId}
+                            levelType={levelType}
+                        />
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </>
     )
 }
