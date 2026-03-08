@@ -20,22 +20,24 @@ export const Header = ({ category }: HeaderProps) => {
     const handleBack = useCallback(() => router.back(), [router])
 
     return (
-        <View className="flex-row items-center justify-between rounded-[14px] border border-border bg-surface/80 px-3 py-2.5">
-            <View className="flex-1 flex-row items-center gap-2.5">
-                <TouchableOpacity className="p-1" onPress={handleBack}>
-                    <ChevronLeft color={COLORS.foreground} size={20} />
+        <View className="flex-row items-center justify-between rounded-2xl border border-border bg-surface px-3 py-3">
+            <View className="flex-1 flex-row items-center gap-3">
+                <TouchableOpacity
+                    className="rounded-xl border border-border bg-surface-hover p-2"
+                    onPress={handleBack}>
+                    <ChevronLeft color={COLORS.foreground} size={18} />
                 </TouchableOpacity>
-                <View className="rounded-full bg-primary p-1.5">
+                <View className="rounded-xl bg-primary/10 p-2">
                     <Image
                         contentFit="contain"
                         source={{
                             uri: addImageResizeParams(category.icon, 64, 64),
                         }}
-                        style={{ width: 24, height: 24 }}
+                        style={{ width: 22, height: 22 }}
                     />
                 </View>
                 <Text
-                    className="flex-1 text-[13px] font-medium text-muted"
+                    className="flex-1 text-[14px] font-semibold text-foreground"
                     numberOfLines={1}>
                     {category.name}
                 </Text>
@@ -43,7 +45,7 @@ export const Header = ({ category }: HeaderProps) => {
 
             <View className="flex-row items-center gap-2">
                 {device?.username ? (
-                    <View className="rounded-lg border border-border bg-surface px-3 py-1.5">
+                    <View className="rounded-xl border border-border bg-surface-hover px-3 py-2">
                         <Text className="text-[13px] font-semibold text-foreground">
                             {device.username}
                         </Text>
