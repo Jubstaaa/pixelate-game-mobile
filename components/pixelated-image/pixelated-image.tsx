@@ -36,7 +36,12 @@ export const PixelatedImage = ({
     }, [image, size])
 
     const pixelSize = useMemo(
-        () => computeBlockSize(count, levelType, Math.min(canvasWidth, canvasHeight)),
+        () =>
+            computeBlockSize(
+                count,
+                levelType,
+                Math.min(canvasWidth, canvasHeight)
+            ),
         [count, levelType, canvasWidth, canvasHeight]
     )
 
@@ -70,11 +75,13 @@ export const PixelatedImage = ({
                 {isFullyRevealed && levelType === 1 ? (
                     <ColorMatrix matrix={GRAYSCALE_MATRIX} />
                 ) : !isFullyRevealed ? (
-                    <RuntimeShader source={shader} uniforms={{ pixelSize }}>
-                        {levelType === 1 ? (
-                            <ColorMatrix matrix={GRAYSCALE_MATRIX} />
-                        ) : null}
-                    </RuntimeShader>
+                    <RuntimeShader
+                        source={shader}
+                        uniforms={{
+                            pixelSize,
+                            grayscale: levelType === 1 ? 1.0 : 0.0,
+                        }}
+                    />
                 ) : null}
             </Image>
         </Canvas>

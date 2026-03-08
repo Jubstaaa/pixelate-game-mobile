@@ -5,10 +5,16 @@ import { Skia } from '@shopify/react-native-skia'
 const PIXELATE_SHADER_SRC = `
   uniform shader image;
   uniform float pixelSize;
+  uniform float grayscale;
 
   half4 main(float2 xy) {
     float2 snapped = floor(xy / pixelSize) * pixelSize + pixelSize * 0.5;
-    return image.eval(snapped);
+    half4 color = image.eval(snapped);
+    if (grayscale > 0.5) {
+      float avg = dot(color.rgb, half3(0.333, 0.333, 0.333));
+      return half4(avg, avg, avg, color.a);
+    }
+    return color;
   }
 `
 
@@ -17,7 +23,11 @@ export const GRAYSCALE_MATRIX = [
     0, 0, 0, 0, 0, 1, 0,
 ]
 
-export const computeBlockSize = (count: number, levelType: number, size: number = 400): number => {
+export const computeBlockSize = (
+    count: number,
+    levelType: number,
+    size: number = 400
+): number => {
     const maxBlockSize = levelType === 1 ? 32 : 80
     const minBlockSize = 1
     const webBlockSize = Math.max(
