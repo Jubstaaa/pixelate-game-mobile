@@ -17,13 +17,14 @@ export const GRAYSCALE_MATRIX = [
     0, 0, 0, 0, 0, 1, 0,
 ]
 
-export const computeBlockSize = (count: number, levelType: number): number => {
+export const computeBlockSize = (count: number, levelType: number, size: number = 400): number => {
     const maxBlockSize = levelType === 1 ? 32 : 80
     const minBlockSize = 1
-    return Math.max(
+    const webBlockSize = Math.max(
         minBlockSize,
         maxBlockSize - Math.floor((count / 6) * (maxBlockSize - minBlockSize))
     )
+    return Math.max(1, Math.round(webBlockSize * (size / 400)))
 }
 
 export const usePixelateShader = () =>

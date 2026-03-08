@@ -31,43 +31,44 @@ export const CategoryCard = ({ item }: CategoryCardProps) => {
 
     return (
         <View
-            className={`overflow-hidden rounded-[14px] border border-border bg-surface${!item.isActive ? 'opacity-40' : ''}`}>
-            <View className="items-center gap-3 p-6">
-                <Image
-                    contentFit="contain"
-                    source={{ uri: addImageResizeParams(item.icon, 128, 128) }}
-                    style={{ width: 80, height: 80 }}
-                />
-                <Text className="text-[16px] font-semibold text-foreground">
-                    {item.name}
-                </Text>
-            </View>
-
-            <View className="flex-row justify-center gap-3 border-t border-border bg-white/10 p-4">
-                {item.isActive ? (
-                    <>
-                        <TouchableOpacity
-                            className="rounded-lg border border-border px-5 py-2"
-                            onPress={handleEasyPress}>
-                            <Text className="text-sm font-medium text-foreground">
-                                Easy
+            className={`overflow-hidden rounded-2xl border border-border bg-surface${!item.isActive ? ' opacity-40' : ''}`}>
+            <View className="flex-row items-center gap-4 px-4 py-4">
+                <View className="rounded-xl bg-primary/10 p-3">
+                    <Image
+                        contentFit="contain"
+                        source={{ uri: addImageResizeParams(item.icon, 128, 128) }}
+                        style={{ width: 44, height: 44 }}
+                    />
+                </View>
+                <View className="flex-1 gap-2.5">
+                    <Text className="text-[17px] font-bold text-foreground">
+                        {item.name}
+                    </Text>
+                    {item.isActive ? (
+                        <View className="flex-row gap-2">
+                            <TouchableOpacity
+                                className="rounded-lg border border-success/25 bg-success/10 px-4 py-1.5"
+                                onPress={handleEasyPress}>
+                                <Text className="text-[12px] font-semibold text-success">
+                                    Easy
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                className="rounded-lg border border-warning/25 bg-warning/10 px-4 py-1.5"
+                                onPress={handleHardPress}>
+                                <Text className="text-[12px] font-semibold text-warning">
+                                    Hard
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    ) : (
+                        <View className="self-start rounded-lg border border-border px-3 py-1.5">
+                            <Text className="text-[12px] text-muted">
+                                Coming Soon
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            className="rounded-lg border border-border px-5 py-2"
-                            onPress={handleHardPress}>
-                            <Text className="text-sm font-medium text-foreground">
-                                Hard
-                            </Text>
-                        </TouchableOpacity>
-                    </>
-                ) : (
-                    <View className="rounded-full border border-border px-3.5 py-[6px]">
-                        <Text className="text-[13px] text-muted">
-                            Coming Soon
-                        </Text>
-                    </View>
-                )}
+                        </View>
+                    )}
+                </View>
             </View>
         </View>
     )

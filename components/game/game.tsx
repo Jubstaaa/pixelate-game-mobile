@@ -171,8 +171,8 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 className="flex-1"
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-                <View className="flex-1 items-center gap-5 pt-3">
-                    <View className="z-0 overflow-hidden rounded-[14px] border border-border">
+                <View className="flex-1 items-center gap-4 pt-2">
+                    <View className="z-0 overflow-hidden rounded-2xl border border-border shadow-lg">
                         <PixelatedImage
                             count={isRevealed ? 6 : (data.count ?? 0)}
                             imageUrl={imageUrl}
@@ -181,15 +181,15 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                         />
                     </View>
 
-                    <View className="flex-row gap-2.5">
-                        <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
-                            <Flame color={COLORS.warning} size={16} />
+                    <View className="flex-row gap-2">
+                        <View className="flex-row items-center gap-2 rounded-xl border border-warning/25 bg-warning/10 px-4 py-2">
+                            <Flame color={COLORS.warning} size={15} />
                             <Text className="text-[15px] font-bold text-warning">
                                 {data.streak ?? 0}
                             </Text>
                         </View>
-                        <View className="flex-row items-center gap-1.5 rounded-full border border-border bg-surface px-[14px] py-1.75">
-                            <Trophy color={COLORS.success} size={16} />
+                        <View className="flex-row items-center gap-2 rounded-xl border border-success/25 bg-success/10 px-4 py-2">
+                            <Trophy color={COLORS.success} size={15} />
                             <Text className="text-[15px] font-bold text-success">
                                 {data.maxStreak ?? 0}
                             </Text>
@@ -203,7 +203,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                             <TextInput
                                 autoCapitalize="none"
                                 autoCorrect={false}
-                                className="rounded-[10px] border border-border bg-surface px-[14px] py-[13px] text-[15px] text-foreground"
+                                className="rounded-xl border border-border bg-surface px-4 py-[14px] text-[15px] text-foreground"
                                 placeholder="Type to search..."
                                 placeholderTextColorClassName="accent-muted"
                                 value={input}
@@ -212,38 +212,42 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                             />
                             {showDropdown && filteredCharacters.length > 0 && (
                                 <View
-                                    className="absolute right-0 bottom-full left-0 z-20 mb-1 overflow-hidden rounded-[10px] border border-border bg-surface"
+                                    className="absolute right-0 bottom-full left-0 z-20 mb-1.5 overflow-hidden rounded-xl border border-border bg-surface"
                                     style={{
                                         elevation: 8,
                                         shadowColor: '#000',
                                         shadowOffset: { width: 0, height: -4 },
-                                        shadowOpacity: 0.3,
-                                        shadowRadius: 8,
+                                        shadowOpacity: 0.4,
+                                        shadowRadius: 12,
                                     }}>
-                                    {filteredCharacters.map(item => (
-                                        <TouchableOpacity
-                                            key={item.id}
-                                            className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5"
-                                            onPress={() => handleSelect(item)}>
-                                            <Image
-                                                contentFit="cover"
-                                                source={{
-                                                    uri: addImageResizeParams(
-                                                        item.characterImage,
-                                                        64,
-                                                        64
-                                                    ),
-                                                }}
-                                                style={{
-                                                    width: 32,
-                                                    height: 32,
-                                                    borderRadius: 16,
-                                                }}
-                                            />
-                                            <Text className="text-sm text-foreground">
-                                                {item.name}
-                                            </Text>
-                                        </TouchableOpacity>
+                                    {filteredCharacters.map((item, index) => (
+                                        <React.Fragment key={item.id}>
+                                            <TouchableOpacity
+                                                className="flex-row items-center gap-3 px-4 py-3.5"
+                                                onPress={() => handleSelect(item)}>
+                                                <Image
+                                                    contentFit="cover"
+                                                    source={{
+                                                        uri: addImageResizeParams(
+                                                            item.characterImage,
+                                                            80,
+                                                            80
+                                                        ),
+                                                    }}
+                                                    style={{
+                                                        width: 40,
+                                                        height: 40,
+                                                        borderRadius: 20,
+                                                    }}
+                                                />
+                                                <Text className="text-[15px] font-medium text-foreground">
+                                                    {item.name}
+                                                </Text>
+                                            </TouchableOpacity>
+                                            {index < filteredCharacters.length - 1 && (
+                                                <View className="border-b border-border" />
+                                            )}
+                                        </React.Fragment>
                                     ))}
                                 </View>
                             )}

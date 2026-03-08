@@ -27,9 +27,17 @@ export const PixelatedImage = ({
     const image = useImage(imageUrl)
     const shader = usePixelateShader()
 
+    const { canvasWidth, canvasHeight } = useMemo(() => {
+        if (!image) return { canvasWidth: size, canvasHeight: size }
+        const aspect = image.width() / image.height()
+        const w = aspect >= 1 ? size : Math.round(size * aspect)
+        const h = aspect >= 1 ? Math.round(size / aspect) : size
+        return { canvasWidth: w, canvasHeight: h }
+    }, [image, size])
+
     const pixelSize = useMemo(
-        () => computeBlockSize(count, levelType),
-        [count, levelType]
+        () => computeBlockSize(count, levelType, Math.min(canvasWidth, canvasHeight)),
+        [count, levelType, canvasWidth, canvasHeight]
     )
 
     const isFullyRevealed = count === 6
@@ -51,12 +59,12 @@ export const PixelatedImage = ({
     }
 
     return (
-        <Canvas style={{ height: size, width: size }}>
+        <Canvas style={{ height: canvasHeight, width: canvasWidth }}>
             <Image
-                fit="cover"
-                height={size}
+                fit="fill"
+                height={canvasHeight}
                 image={image}
-                width={size}
+                width={canvasWidth}
                 x={0}
                 y={0}>
                 {isFullyRevealed && levelType === 1 ? (
