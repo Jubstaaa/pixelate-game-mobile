@@ -105,6 +105,18 @@ export const gameApi = createApi({
                 body: { feedback, rating },
             }),
         }),
+        skipCharacter: builder.mutation<
+            { message: string; isError: boolean },
+            { categoryId: number; levelType: number }
+        >({
+            query: ({ categoryId, levelType }) => ({
+                url: 'api/game/skip',
+                method: 'POST',
+                body: { categoryId, level_type: levelType },
+            }),
+            transformResponse: (r: ApiResponse<{ message: string; isError: boolean }>) =>
+                r.data ?? (r as unknown as { message: string; isError: boolean }),
+        }),
         submitGuess: builder.mutation<
             GameData,
             { categoryId: number; id: number; levelType: number }
@@ -128,5 +140,6 @@ export const {
     useGetLeaderboardQuery,
     useSaveDeviceMutation,
     useSendFeedbackMutation,
+    useSkipCharacterMutation,
     useSubmitGuessMutation,
 } = gameApi

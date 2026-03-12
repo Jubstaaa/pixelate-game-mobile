@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 
-import { Flame, Trophy } from 'lucide-react-native'
+import { Flame, SkipForward, Trophy } from 'lucide-react-native'
 
 import {
     ActivityIndicator,
@@ -20,6 +20,7 @@ import {
     useGetCharactersQuery,
     useGetDeviceQuery,
     useGetGameDataQuery,
+    useSkipCharacterMutation,
     useSubmitGuessMutation,
 } from '@/lib/api/game-api'
 import type { Character, GameData } from '@/lib/api/game-api.types'
@@ -55,6 +56,7 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
     const [isRevealed, setIsRevealed] = useState(false)
 
     const [submitGuess] = useSubmitGuessMutation()
+    const [skipCharacter, { isLoading: isSkipping }] = useSkipCharacterMutation()
 
     const {
         data = {} as GameData,
@@ -132,6 +134,22 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
         [categoryId, levelType, submitGuess, refetch]
     )
 
+    const handleSkip = useCallback(async () => {
+        setIsRevealed(true)
+        try {
+            await skipCharacter({ categoryId, levelType }).unwrap()
+            setTimeout(async () => {
+                await refetch()
+                setIsRevealed(false)
+                setGuessedIds([])
+                setInput('')
+            }, 2000)
+        } catch {
+            setIsRevealed(false)
+            refetch()
+        }
+    }, [categoryId, levelType, skipCharacter, refetch])
+
     if (isLoading || isCharsLoading || isDeviceLoading) {
         return (
             <View className="flex-1 items-center justify-center">
@@ -179,6 +197,16 @@ export const Game = ({ categoryId, levelType }: GameProps) => {
                             levelType={levelType}
                             size={300}
                         />
+                        <TouchableOpacity
+                            disabled={isSkipping || isRevealed}
+                            className="absolute right-2 top-2 flex-row items-center gap-1.5 rounded-xl border border-border bg-background/80 px-3 py-1.5 disabled:opacity-50"
+                            onPress={handleSkip}
+                        >
+                            <SkipForward color={COLORS.muted} size={14} />
+                            <Text className="text-xs font-medium text-muted">
+                                Skip
+                            </Text>
+                        </TouchableOpacity>
                     </View>
 
                     <View className="flex-row gap-2">
